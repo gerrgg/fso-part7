@@ -1,39 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { createBlog } from "../reducers/blogReducer";
-import blogService from "../services/blogs";
 
 const CreateBlogForm = ({ blogs, setBlogs, setNotification, user }) => {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
 
-  const handleCreateBlog = async (event) => {
+  const handleCreateBlog = (event) => {
     event.preventDefault();
-
-    try {
-      const createdBlog = await blogService.create({
-        title,
-        author,
-        url,
-        user,
-      });
-
-      // dispatch(createBlog(createdBlog));
-
-      setNotification({
-        message: `${createdBlog.title} by ${createdBlog.author} created!`,
-        type: "success",
-      });
-
-      setTimeout(() => {
-        setNotification({});
-      }, 5000);
-    } catch (exception) {
-      setNotification({
-        message: "Creating blog failed",
-        type: "error",
-      });
-    }
+    dispatch(createBlog({ title, author, url, user }));
   };
 
   return (

@@ -1,9 +1,11 @@
 import blogService from "../services/blogs";
+import { setNotification } from "./notificationReducer";
 
 const blogReducer = (state = [], action) => {
   switch (action.type) {
-    case "NEW_BLOG":
+    case "NEW_BLOG": {
       return [...state, action.data];
+    }
     case "INIT_BLOGS":
       return action.data;
     default:
@@ -12,9 +14,22 @@ const blogReducer = (state = [], action) => {
 };
 
 export const createBlog = (blog) => {
-  return {
-    type: "NEW_BLOG",
-    data: blog,
+  return async (dispatch) => {
+    try {
+      const createdBlog = await blogService.create(blog);
+      dispatch({
+        type: "NEW_BLOG",
+        data: createdBlog,
+      });
+
+      dispatch(
+        setNotification(
+          `${createdBlog.title} by ${createdBlog.author} created!`
+        )
+      );
+    } catch (e) {
+      dispatch(setNotification("Creating blog failed"));
+    }
   };
 };
 
