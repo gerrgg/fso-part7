@@ -18,7 +18,7 @@ const CreateNew = ({ addNew }) => {
 
   const handleReset = (e) => {
     let inputs = [content, author, info];
-    inputs.forEach((input) => input.onReset());
+    inputs.forEach((input) => input.clear());
   };
 
   return (
