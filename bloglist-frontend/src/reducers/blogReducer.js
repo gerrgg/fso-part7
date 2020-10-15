@@ -3,11 +3,13 @@ import { setNotification } from "./notificationReducer";
 
 const blogReducer = (state = [], action) => {
   switch (action.type) {
+    case "INIT_BLOGS":
+      return action.data;
+
     case "NEW_BLOG": {
       return [...state, action.data];
     }
-    case "INIT_BLOGS":
-      return action.data;
+
     default:
       return state;
   }
@@ -28,7 +30,7 @@ export const createBlog = (blog) => {
         )
       );
     } catch (e) {
-      dispatch(setNotification("Creating blog failed"));
+      dispatch(setNotification(`Creating blog failed: ${e.message}`));
     }
   };
 };
