@@ -24,6 +24,7 @@ const CreateBlogForm = ({ user }) => {
     // Call the function which creates the blog and create new state
     dispatch(createBlog(newBlog));
     // clear inputs after successful submission
+    [title, author, url].forEach((i) => i.onReset());
   };
 
   return (
