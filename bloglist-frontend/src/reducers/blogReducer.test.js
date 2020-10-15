@@ -43,4 +43,28 @@ describe("blogReducer", () => {
 
     expect(newestblog).toEqual(action.data);
   });
+
+  test("returns a new state with action CREATE_blog with the passed object", () => {
+    const state = [
+      {
+        title: "If it hurts, do it more often",
+        author: "greg",
+        url: "greg.com",
+        id: 10,
+      },
+    ];
+
+    const action = {
+      type: "DELETE_BLOG",
+      data: { id: 10 },
+    };
+
+    deepFreeze(state);
+
+    expect(state).toHaveLength(1);
+
+    const newState = blogReducer(state, action);
+
+    expect(newState).toHaveLength(0);
+  });
 });

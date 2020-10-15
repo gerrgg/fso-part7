@@ -56,9 +56,9 @@ export const loginUser = (username, password) => {
       blogService.setToken(user.token);
 
       dispatch({ type: "LOGIN_USER", data: user });
-      setNotification("Login successful");
+      dispatch(setNotification("Login successful"));
     } catch (e) {
-      setNotification("Invalid password / username combo");
+      dispatch(setNotification("Invalid password / username combo"));
     }
   };
 };

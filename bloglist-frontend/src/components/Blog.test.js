@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent } from "@testing-library/react";
 import { prettyDOM } from "@testing-library/dom";
-import Blog from "./Blog";
+import { Blog } from "./Blogs";
 
 const user = {
   id: "987987987987",
