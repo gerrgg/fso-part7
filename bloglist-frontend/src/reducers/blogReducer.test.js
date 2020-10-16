@@ -67,4 +67,31 @@ describe("blogReducer", () => {
 
     expect(newState).toHaveLength(0);
   });
+
+  test("returns a new state with action CREATE_blog with the passed object", () => {
+    const state = [
+      {
+        title: "If it hurts, do it more often",
+        author: "greg",
+        url: "greg.com",
+        likes: 10,
+        id: 10,
+      },
+    ];
+
+    const action = {
+      type: "LIKE_BLOG",
+      data: { id: 10 },
+    };
+
+    deepFreeze(state);
+
+    expect(state).toHaveLength(1);
+
+    const newState = blogReducer(state, action);
+
+    console.log(newState[0]);
+
+    expect(newState[0].likes).toBe(state[0].likes + 1);
+  });
 });

@@ -18,6 +18,18 @@ const blogReducer = (state = [], action) => {
       return state.filter((blog) => blog.id !== id);
     }
 
+    case "LIKE_BLOG": {
+      const id = action.data.id;
+      const likedBlog = state.find((n) => n.id === id);
+
+      const changedBlog = {
+        ...likedBlog,
+        likes: likedBlog.likes + 1,
+      };
+
+      return state.map((blog) => (blog.id !== id ? blog : changedBlog));
+    }
+
     default:
       return state;
   }
@@ -51,13 +63,38 @@ export const deleteBlog = (id, token) => {
       const deletedBlog = await blogService.remove(id, token);
       dispatch({
         type: "DELETE_BLOG",
-        data: { id: id },
+        data: { id },
       });
 
       dispatch(setNotification("Delete successful"));
     } catch (e) {
       console.log(e);
       dispatch(setNotification(`Delete failed: ${e.message}`));
+    }
+  };
+};
+
+export const likeBlog = (id, objectToUpdate) => {
+  return async (dispatch) => {
+    try {
+      const updatedObject = {
+        ...objectToUpdate,
+        likes: objectToUpdate.likes + 1,
+      };
+
+      console.log(id, updatedObject);
+
+      await blogService.update(id, updatedObject);
+
+      dispatch({
+        type: "LIKE_BLOG",
+        data: { id },
+      });
+
+      dispatch(setNotification("Update successful"));
+    } catch (e) {
+      console.log(e);
+      dispatch(setNotification(`Update failed: ${e.message}`));
     }
   };
 };

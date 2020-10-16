@@ -4,11 +4,11 @@ import LogoutButton from "./LogoutButton";
 import Togglable from "./Togglable";
 import CreateBlogForm from "./CreateBlogForm";
 
-import { deleteBlog } from "../reducers/blogReducer";
+import { deleteBlog, likeBlog } from "../reducers/blogReducer";
 
 const BlogForm = () => {
   const blogs = useSelector((state) =>
-    state.blogs.sort((a, b) => a.likes < b.likes)
+    state.blogs.sort((a, b) => a.likes < b.likes).filter((blog) => blog.user)
   );
 
   return (
@@ -38,8 +38,6 @@ export const Blog = ({ blog }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  const handleLike = () => {};
-
   return (
     <div className="blog">
       <span>
@@ -49,7 +47,10 @@ export const Blog = ({ blog }) => {
         <div className="details">
           <p className="url">URL: {blog.url}</p>
           <p className="likes">Likes: {blog.likes}</p>
-          <button className="likesButton" onClick={() => handleLike(blog)}>
+          <button
+            className="likesButton"
+            onClick={() => dispatch(likeBlog(blog.id, blog))}
+          >
             Like
           </button>
           <p className="user">User: {blog.user ? blog.user.username : null}</p>
