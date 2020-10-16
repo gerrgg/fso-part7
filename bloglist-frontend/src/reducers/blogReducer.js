@@ -49,7 +49,6 @@ export const deleteBlog = (id, token) => {
     try {
       // DO NOT USE SELECTORS IN THE REDUCER
       const deletedBlog = await blogService.remove(id, token);
-
       dispatch({
         type: "DELETE_BLOG",
         data: { id: id },

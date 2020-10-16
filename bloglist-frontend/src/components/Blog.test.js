@@ -1,8 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent } from "@testing-library/react";
-import { prettyDOM } from "@testing-library/dom";
-import { Blog } from "./Blogs";
+import { Blog } from "./BlogForm";
 
 const user = {
   id: "987987987987",
@@ -19,7 +18,7 @@ const blog = {
 };
 
 test("renders the blogs author and title but not the url or likes by default", () => {
-  const component = render(<Blog blog={blog} />);
+  const component = render(<Blog key={blog.id} blog={blog} />);
 
   expect(component.container).toHaveTextContent(
     "You dont know Greg - Gregory Bastianelli"
