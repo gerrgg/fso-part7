@@ -49,7 +49,7 @@ export const Blog = ({ blog }) => {
           <p className="likes">Likes: {blog.likes}</p>
           <button
             className="likesButton"
-            onClick={() => dispatch(likeBlog(blog.id, blog))}
+            onClick={() => dispatch(likeBlog(blog.id, { ...blog }))} // PASS USER PROP AS JUST USER.ID
           >
             Like
           </button>
