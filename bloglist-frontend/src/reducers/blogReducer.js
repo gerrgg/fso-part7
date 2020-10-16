@@ -1,5 +1,7 @@
-import blogService from "../services/blogs";
+import { useResource } from "../hooks/index";
 import { setNotification } from "./notificationReducer";
+
+const blogService = useResource("http://localhost:3003/api/blogs");
 
 const blogReducer = (state = [], action) => {
   console.log("STATE:", state);
@@ -60,7 +62,8 @@ export const deleteBlog = (id, token) => {
   return async (dispatch) => {
     try {
       // DO NOT USE SELECTORS IN THE REDUCER
-      const deletedBlog = await blogService.remove(id, token);
+      await blogService.remove(id, token);
+
       dispatch({
         type: "DELETE_BLOG",
         data: { id },

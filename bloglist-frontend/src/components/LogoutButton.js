@@ -5,10 +5,10 @@ import { logoutUser } from "../reducers/loginReducer";
 const LogoutButton = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.loggedInUser);
 
   return (
-    <div id="logout">
+    <div id="logoutButton">
       <strong>{user.name} is logged in</strong>
       <br />
       <button onClick={() => dispatch(logoutUser())}>Logout</button>

@@ -1,9 +1,11 @@
-import blogService from "../services/blogs";
 import loginService from "../services/login";
+import { useResource } from "../hooks/index";
 
 import { setNotification } from "../reducers/notificationReducer";
 
-const loginReducer = (state = [], action) => {
+const blogService = useResource("http://localhost:3003/api/blogs");
+
+const loginReducer = (state = null, action) => {
   // console.log("STATE:", state);
   // console.log("ACTION:", action);
 

@@ -2,10 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.scss";
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
 // components
 import BlogForm from "./components/BlogForm";
 import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
+import Header from "./components/Header";
+import Users from "./components/Users";
 
 // reducers
 import { initializeBlogs } from "./reducers/blogReducer";
@@ -20,24 +29,26 @@ function App() {
     dispatch(initializeBlogs());
   }, [dispatch]);
 
-  const user = useSelector((state) => state.user);
-
-  const Logo = () => (
-    <h2>
-      Free Speech
-      <span role="img" aria-label="parrot">
-        🤐
-      </span>
-    </h2>
-  );
+  const user = useSelector((state) => state.loggedInUser);
 
   return (
-    <div>
-      <Logo />
-      <Notification />
+    <Router>
+      <div>
+        <Header />
+        <Notification />
 
-      {user === null ? <LoginForm /> : <BlogForm />}
-    </div>
+        <Switch>
+          <Route path="/users">
+            <Users />
+          </Route>
+
+          <Route
+            path="/"
+            render={() => (user ? <BlogForm /> : <LoginForm />)}
+          />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

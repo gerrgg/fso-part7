@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LogoutButton from "./LogoutButton";
 import Togglable from "./Togglable";
 import CreateBlogForm from "./CreateBlogForm";
 
@@ -13,7 +12,6 @@ const BlogForm = () => {
 
   return (
     <div>
-      <LogoutButton />
       <h3>Blogs</h3>
       <Togglable buttonLabel="Create Blog">
         <CreateBlogForm />
@@ -36,7 +34,7 @@ const Blogs = ({ blogs }) => (
 export const Blog = ({ blog }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.loggedInUser);
 
   const updatedBlog = { ...blog, user: user.id };
 
