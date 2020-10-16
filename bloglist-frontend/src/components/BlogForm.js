@@ -38,6 +38,8 @@ export const Blog = ({ blog }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
+  const updatedBlog = { ...blog, user: user.id };
+
   return (
     <div className="blog">
       <span>
@@ -49,7 +51,7 @@ export const Blog = ({ blog }) => {
           <p className="likes">Likes: {blog.likes}</p>
           <button
             className="likesButton"
-            onClick={() => dispatch(likeBlog(blog.id, { ...blog }))} // PASS USER PROP AS JUST USER.ID
+            onClick={() => dispatch(likeBlog(blog.id, updatedBlog))} // PASS USER PROP AS JUST USER.ID
           >
             Like
           </button>
