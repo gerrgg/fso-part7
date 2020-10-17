@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const Logo = () => (
-    <h2 id="logo">
+    <a href="/" id="logo">
       Free Speech
       <span role="img" aria-label="parrot">
         🤐
       </span>
-    </h2>
+    </a>
   );
 
   const user = useSelector((state) => state.loggedInUser);

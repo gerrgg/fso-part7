@@ -22,7 +22,6 @@ import User from "./components/User";
 import { initializeBlogs } from "./reducers/blogReducer";
 import { initializeLogin } from "./reducers/loginReducer";
 import { initializeUsers } from "./reducers/userReducer";
-import CreateBlogForm from "./components/CreateBlogForm";
 
 // GO!
 function App() {
