@@ -4,9 +4,6 @@ import { setNotification } from "./notificationReducer";
 const blogService = useResource("http://localhost:3003/api/blogs");
 
 const blogReducer = (state = [], action) => {
-  console.log("STATE:", state);
-  console.log("ACTION:", action);
-
   switch (action.type) {
     case "INIT_BLOGS":
       return action.data;
