@@ -6,55 +6,80 @@ import { deleteBlog, likeBlog } from "../reducers/blogReducer";
 import { useParams } from "react-router-dom";
 
 const Blog = ({ blogs, loggedInUser }) => {
-  // for dispatching actions to state
-  const dispatch = useDispatch();
-
   // get id from url parameter
   const id = useParams().id;
 
   // find the blog by finding the blog with the same id as the param
-  const blog = blogs.find((n) => {
-    console.log(n.id, id, n.id === id);
-    return n.id === id;
-  });
+  const blog = blogs.find((n) => n.id === id);
 
   // do nothing without a blog
   if (!blog) return null;
+
+  return (
+    <div className="blog">
+      <BlogHeader blog={blog} />
+      <BlogUrl url={blog.url} />
+      <BlogLikes blog={blog} />
+      <BlogUser user={blog.user} />
+      <BlogDeleteButton
+        blogID={blog.id}
+        user={blog.user}
+        loggedInUser={loggedInUser}
+      />
+    </div>
+  );
+};
+
+const BlogHeader = ({ blog }) => (
+  <h2 className="header">
+    {blog.title} - {blog.author ? blog.author : "No Author"}
+  </h2>
+);
+
+const BlogUrl = ({ url }) => (
+  <p className="url">
+    URL: <a href={url}>{url}</a>
+  </p>
+);
+
+const BlogLikes = ({ blog }) => {
+  const dispatch = useDispatch();
 
   // copy of the blog to pass to update
   const updatedBlog = { ...blog, user: blog.user.id };
 
   return (
-    <div className="blog">
-      <span>
-        {blog.title} - {blog.author ? blog.author : "No Author"}
-      </span>
-      <div className="details">
-        <p className="url">
-          URL: <a href={blog.url}>{blog.url}</a>
-        </p>
-        <p className="likes">Likes: {blog.likes}</p>
+    <div className="likes">
+      <p>Likes: {blog.likes}</p>
+      <button
+        className="likesButton"
+        onClick={() => dispatch(likeBlog(blog.id, updatedBlog))} // PASS USER PROP AS JUST USER.ID
+      >
+        Like
+      </button>
+    </div>
+  );
+};
+
+const BlogUser = ({ user }) => (
+  <p className="user">
+    User: {user ? <Link to={`/user/${user.id}`}>{user.username}</Link> : null}
+  </p>
+);
+
+const BlogDeleteButton = ({ blogID, user, loggedInUser }) => {
+  const dispatch = useDispatch();
+
+  return (
+    <div className="deleteButton">
+      {user.id === loggedInUser.id ? (
         <button
-          className="likesButton"
-          onClick={() => dispatch(likeBlog(blog.id, updatedBlog))} // PASS USER PROP AS JUST USER.ID
+          className="delete"
+          onClick={() => dispatch(deleteBlog(blogID, loggedInUser.token))}
         >
-          Like
+          Delete
         </button>
-        <p className="user">
-          User:{" "}
-          {blog.user ? (
-            <Link to={`/user/${blog.user.id}`}>{blog.user.username}</Link>
-          ) : null}
-        </p>
-        {blog.user.id === loggedInUser.id ? (
-          <button
-            className="delete"
-            onClick={() => dispatch(deleteBlog(blog.id, loggedInUser.token))}
-          >
-            Delete
-          </button>
-        ) : null}
-      </div>
+      ) : null}
     </div>
   );
 };

@@ -3,12 +3,14 @@ const jwt = require("jsonwebtoken");
 
 const Blog = require("../models/blog");
 const User = require("../models/user");
+const Comment = require("../models/comment");
+
 const logger = require("../utils/logger");
 
 blogsRouter.get("/", async (request, response) => {
   const blogs = await Blog.find({})
     .populate("user", { username: 1, name: 1 })
-    .populate("comments");
+    .populate("comments", { content: 1, date: 1, id: 1 });
 
   response.status(200).json(blogs);
 });
@@ -40,6 +42,29 @@ blogsRouter.post("/", async (request, response) => {
   await user.save();
 
   response.status(201).json(savedBlog);
+});
+
+blogsRouter.post("/:id/comments", async (request, response) => {
+  const body = request.body;
+  // get the blog object
+  const blog = await Blog.findById(request.params.id).exec();
+
+  console.log(blog);
+
+  // create the new comment
+  const comment = new Comment({
+    content: body.content,
+    blog: blog._id,
+    date: new Date(),
+  });
+
+  const savedComment = await comment.save();
+
+  blog.comments = blog.comments.concat(comment._id);
+
+  await blog.save();
+
+  response.status(201).json(savedComment);
 });
 
 blogsRouter.delete("/:id", async (request, response, next) => {
