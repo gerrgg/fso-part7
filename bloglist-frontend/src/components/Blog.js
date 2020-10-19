@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { deleteBlog, likeBlog } from "../reducers/blogReducer";
 import { useParams } from "react-router-dom";
 
+import Comment from "./Comment";
+import CreateCommentForm from "./CreateCommentForm";
+
 const Blog = ({ blogs, loggedInUser }) => {
   // get id from url parameter
   const id = useParams().id;
@@ -26,6 +29,8 @@ const Blog = ({ blogs, loggedInUser }) => {
         user={blog.user}
         loggedInUser={loggedInUser}
       />
+      <CreateCommentForm />
+      <BlogComments comments={blog.comments} />
     </div>
   );
 };
@@ -80,6 +85,19 @@ const BlogDeleteButton = ({ blogID, user, loggedInUser }) => {
           Delete
         </button>
       ) : null}
+    </div>
+  );
+};
+
+const BlogComments = ({ comments }) => {
+  if (comments.length === 0) return null;
+
+  return (
+    <div className="comments">
+      <h4>Comments</h4>
+      {comments.map((comment) => (
+        <Comment key={comment.id} comment={comment} />
+      ))}
     </div>
   );
 };

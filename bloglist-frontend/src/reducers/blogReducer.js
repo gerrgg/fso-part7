@@ -1,5 +1,6 @@
 import { useResource } from "../hooks/index";
 import { setNotification } from "./notificationReducer";
+import commentService from "../services/comment";
 
 const blogService = useResource("http://localhost:3003/api/blogs");
 
@@ -29,9 +30,42 @@ const blogReducer = (state = [], action) => {
       return state.map((blog) => (blog.id !== id ? blog : changedBlog));
     }
 
+    case "UPDATE_BLOG_COMMENTS": {
+      const blogID = action.data.id;
+
+      const blogToUpdate = state.find((n) => n.id === blogID);
+
+      const blogWithNewComment = {
+        ...blogToUpdate,
+        comments: blogToUpdate.comments.concat(action.data.newComment),
+      };
+
+      return state.map((blog) =>
+        blog.id !== blogID ? blog : blogWithNewComment
+      );
+    }
+
     default:
       return state;
   }
+};
+
+export const commentOnBlog = (blogID, comment) => {
+  return async (dispatch) => {
+    try {
+      const newComment = await commentService.create(blogID, comment);
+
+      dispatch({
+        type: "UPDATE_BLOG_COMMENTS",
+        data: { id: blogID, newComment: newComment.id },
+      });
+
+      dispatch(setNotification("Comment successful"));
+    } catch (e) {
+      console.log(e);
+      dispatch(setNotification(`Update failed: ${e.message}`));
+    }
+  };
 };
 
 export const createBlog = (blog) => {
