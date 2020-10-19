@@ -57,7 +57,7 @@ export const commentOnBlog = (blogID, comment) => {
 
       dispatch({
         type: "UPDATE_BLOG_COMMENTS",
-        data: { id: blogID, newComment: newComment.id },
+        data: { id: blogID, newComment: newComment },
       });
 
       dispatch(setNotification("Comment successful"));
