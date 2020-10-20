@@ -12,7 +12,7 @@ import Notification from "./components/Notification";
 import Header from "./components/Header";
 import Users from "./components/Users";
 import User from "./components/User";
-
+import CreateBlogForm from "./components/CreateBlogForm";
 // reducers
 import { initializeBlogs } from "./reducers/blogReducer";
 import { initializeLogin } from "./reducers/loginReducer";
@@ -32,11 +32,14 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className="container">
         <Header />
         <Notification />
 
         <Switch>
+          <Route path="/blog/new">
+            <CreateBlogForm user={state.user} />
+          </Route>
           <Route path="/users">
             <Users users={state.users} />
           </Route>

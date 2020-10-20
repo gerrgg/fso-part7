@@ -5,13 +5,16 @@ const Blogs = ({ blogs }) => {
   if (!blogs) return null;
 
   return (
-    <ul>
-      {blogs.map((blog) => (
-        <li>
-          <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
-        </li>
-      ))}
-    </ul>
+    <div id="blogs">
+      <h2>Blogs</h2>
+      <div className="row">
+        {blogs.map((blog) => (
+          <div className="col-xs-3">
+            <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
