@@ -3,7 +3,7 @@ import { useResource } from "../hooks/index";
 
 import { setNotification } from "../reducers/notificationReducer";
 
-const blogService = useResource("http://localhost:3003/api/blogs");
+const blogService = useResource("/api/blogs");
 
 const loginReducer = (state = null, action) => {
   // console.log("STATE:", state);

@@ -2,7 +2,7 @@ import { useResource } from "../hooks/index";
 import { setNotification } from "./notificationReducer";
 import commentService from "../services/comment";
 
-const blogService = useResource("http://localhost:3003/api/blogs");
+const blogService = useResource("/api/blogs");
 
 const blogReducer = (state = [], action) => {
   switch (action.type) {
