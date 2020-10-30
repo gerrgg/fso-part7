@@ -55,9 +55,10 @@ export const commentOnBlog = (blogID, comment) => {
     try {
       const newComment = await commentService.create(blogID, comment);
 
+      // DISPATCH THE ENTIRE OBJECT FOR THE FRONTEND TO USE
       dispatch({
         type: "UPDATE_BLOG_COMMENTS",
-        data: { id: blogID, newComment: newComment.id },
+        data: { id: blogID, newComment: newComment },
       });
 
       dispatch(setNotification("Comment successful"));

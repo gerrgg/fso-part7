@@ -1,0 +1,49 @@
+#header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 10px solid #333;
+    border-left: 10px solid #333;
+    border-right: 10px solid #333;
+    background-color: #666;
+    margin-bottom: 1rem;
+    white-space: nowrap;
+
+    a {
+        font-size: 1.5rem;
+        padding: 1rem;
+        font-family: "Staatliches", cursive;
+        color: #fff;
+    }
+
+    #logo {
+        font-family: "Staatliches", cursive;
+        font-size: 2rem;
+        text-decoration: none;
+        color: #fff;
+
+        span {
+            padding-left: 0.5rem;
+        }
+    }
+
+    .header-right {
+        margin-left: auto;
+    }
+
+    #logoutButton {
+        padding: 0.25rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #ffcc4d;
+        font-size: 0.75rem;
+        text-align: center;
+
+        button {
+            background-color: #ffcc4d;
+            margin: 0.5rem auto;
+            color: #333;
+            padding: 0.25rem 0.75rem;
+            font-size: 1rem;
+        }
+    }
+}

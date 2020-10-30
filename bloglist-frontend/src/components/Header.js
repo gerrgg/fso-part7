@@ -21,6 +21,7 @@ const Header = () => {
       <Logo />
       <Link to="/">home</Link>
       <Link to="/users">Users</Link>
+      <Link to="/blog/new">New Blog</Link>
       <div className="header-right">{user ? <LogoutButton /> : null}</div>
     </nav>
   );

@@ -1,67 +1,30 @@
-#header {
+@import "sass/home.scss";
+@import "sass/header.scss";
+@import "sass/login.scss";
+@import "sass/notifications.scss";
+@import "sass/user.scss";
+@import "sass/comment.scss";
+@import "sass/blog.scss";
+
+html {
+  background-color: #b7b7b7;
+}
+.container {
+  background-color: #fff;
+  padding: 0 -15px;
+  margin: 0 auto;
+  max-width: 800px;
+  border: 5px dashed #333;
+}
+
+.row {
   display: flex;
-  align-items: center;
-
-  a {
-    font-size: 1.5rem;
-    padding: 1rem;
-    font-family: "Staatliches", cursive;
-  }
-
-  #logo {
-    font-family: "Staatliches", cursive;
-    font-size: 2rem;
-    text-decoration: none;
-    color: #333;
-  }
-
-  .header-right {
-    margin-left: auto;
-  }
-
-  #logoutButton {
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  // align-items: center;
 }
 
-.notifications {
-  padding: 1rem;
-  font-weight: 600;
-  color: white;
-
-  &.error {
-    background-color: red;
-  }
-
-  &.success {
-    background-color: green;
-  }
-}
-
-#loginForm {
-  input {
-    margin-left: 0.5rem;
-  }
-}
-
-.blog {
-  border: 1px solid #333;
-  padding: 1rem;
-}
-
-#user {
-  .title span {
-    font-size: 1rem;
-    color: #555;
-  }
-}
-
-.comment {
-  .posted-on {
-    color: rgba(0, 0, 0, 0.5);
-  }
-  .content {
-    margin-top: 0.25rem;
-  }
+.col-xs-3 {
+  width: 25%;
+  padding: 0 0.25rem;
 }

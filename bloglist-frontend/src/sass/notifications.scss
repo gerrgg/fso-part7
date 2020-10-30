@@ -1,0 +1,13 @@
+.notifications {
+    padding: 1rem;
+    font-weight: 600;
+    color: white;
+
+    &.error {
+        background-color: red;
+    }
+
+    &.success {
+        background-color: green;
+    }
+}

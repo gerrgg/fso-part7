@@ -32,6 +32,7 @@ const CreateBlogForm = ({ user }) => {
 
   return (
     <form onSubmit={handleCreateBlog}>
+      <h1>Create New</h1>
       <p>
         Title:
         <input {...title} />
